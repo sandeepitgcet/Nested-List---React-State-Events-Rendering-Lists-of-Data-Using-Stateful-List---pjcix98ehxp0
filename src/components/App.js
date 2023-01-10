@@ -155,7 +155,42 @@ const states = [
 ];
 
 function App() {
-  return <div id="main"></div>;
+  const showHandler = (event) => {
+    const id = event.target.id;
+    console.log("id "+id);
+    const element =document.querySelector("#"+id+" + ul");
+    const isBlock = element.style.display=="block";
+    element.style.display = isBlock?"none":"block";
+
+  }
+  return <div id="main">
+    { states.map( (state,index) => {
+      return (
+        <React.Fragment key={"state"+(index+1)}>
+          <li show="true" id={"state"+(index+1)} onClick={showHandler}>{state.name}</li>
+          <ul style={{display:"none"}}>
+                { state.cities.map( (city,  index1) => {
+                  return (
+                    <React.Fragment key={"city"+(index1+1)}>
+                      <li id={"city"+(index1+1)} onClick={showHandler}>{city.name}</li>
+                      <ul style={{display:"none"}}>
+                            {city.towns.map( (town,index2) => {
+                              return (
+                                <React.Fragment key={"town"+(index2+1)}>
+                                  <li id={"town"+(index2+1)}>{town.name}</li>
+                                </React.Fragment>
+                              )
+                            })}
+                      </ul>
+                    </React.Fragment>
+                  )
+                }) }
+          </ul>
+        </React.Fragment>
+        
+      )
+    })}
+  </div>;
 }
 
 export default App;
