@@ -155,24 +155,32 @@ const states = [
 ];
 
 function App() {
-  const showHandler = (event) => {
+  const showCitiesHandler = (event) => {
     const id = event.target.id;
     console.log("id "+id);
-    const element =document.querySelector("#"+id+" + ul");
+    const element =event.target.querySelector("#"+id+" + ul");
     const isBlock = element.style.display=="block";
     element.style.display = isBlock?"none":"block";
 
+  }
+  const  showTownHandler = event => {
+    //console.log(event.target.parentElement.id);
+    const id = event.target.id;
+    console.log("id "+id);
+    const element =event.target.parentElement.querySelector("#"+id+" + ul");
+    const isBlock = element.style.display=="block";
+    element.style.display = isBlock?"none":"block";
   }
   return <div id="main">
     { states.map( (state,index) => {
       return (
         <React.Fragment key={"state"+(index+1)}>
-          <li show="true" id={"state"+(index+1)} onClick={showHandler}>{state.name}</li>
+          <li id={"state"+(index+1)} onClick={showCitiesHandler}>{state.name}</li>
           <ul style={{display:"none"}}>
                 { state.cities.map( (city,  index1) => {
                   return (
                     <React.Fragment key={"city"+(index1+1)}>
-                      <li id={"city"+(index1+1)} onClick={showHandler}>{city.name}</li>
+                      <li id={"city"+(index1+1)} onClick={showTownHandler}>{city.name}</li>
                       <ul style={{display:"none"}}>
                             {city.towns.map( (town,index2) => {
                               return (
